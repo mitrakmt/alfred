@@ -27,6 +27,13 @@
 - Morgan
 - Path
 - Request
+- Bcrypt
+- Router
+- Lodash
+- Express-session
+- Cors
+- Moment
+- Dotenv
 
 ### Testing frameworks used:
 - Mocha
