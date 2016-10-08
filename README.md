@@ -1,5 +1,9 @@
 # alfred
 
+## Built by:
+- Michel Mitrakos - Back-end
+- Michael Flores - Front-end
+
 ## Technologies Used:
 ### Front-end:
 - React JS
