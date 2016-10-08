@@ -22,7 +22,13 @@ Middleware.hashPass = function (req, res, next) {
   });
 }
 
-Middleware.checkEmailUsed = function (req, res, next) {
+Middleware.checkEmailValidity = function (req, res, next) {
+  let includesAt = _.includes(req.body.email, '@');
+  let includesDot = _.includes(req.body.email, '.');
+  if (!includesDot || !includesAt) {
+    res.status(400).send("Invalid email")
+  }
+
   User.findOne({"email": req.body.email}, function (err, result) {
     if (result !== null) {
       res.status(400).send("That email has already been used")
@@ -41,7 +47,7 @@ Middleware.checkPass = function (req, res, next) {
         } else if (response) {
           next();
         } else {
-          res.status(400).send("Passwords don't match, will redirect somewhere");
+          res.status(400).send("Invalid email or password");
         }
     });
   })

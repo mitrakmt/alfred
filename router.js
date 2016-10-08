@@ -4,7 +4,7 @@ const User = require('./db/User');
 const Middleware = require('./middleware');
 
   Router.route('/signup')
-    .post(Middleware.checkEmailUsed, Middleware.hashPass, Middleware.createToken, function(req, res) {
+    .post(Middleware.checkEmailValidity, Middleware.hashPass, Middleware.createToken, function(req, res) {
       console.log("SESSSSION", req.session)
       User.create(req.body, function (err, result) {
         if (err) {
