@@ -1,4 +1,4 @@
-# alfred
+# Alfred - your stock market assistant
 
 ## Built by:
 - Michel Mitrakos - Back-end
