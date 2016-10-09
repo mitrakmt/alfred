@@ -64,32 +64,17 @@ Sometimes your API call will generate an error. Every response to an API call th
 - [Michel Mitrakos](https://www.michaelmitrakos.com) - Back-end
 - [Michael Flores](https://www.twitter.com/mike_flores23) - Front-end
 
+
 ## Built With:
-### Front-end:
-- React JS
-- Webpack
-- Redux
-
-### Back-end:
-- Mongo Db
-- Mongoose
-- Node JS
-- Express JS
-
-### Modules Used:
-- BodyParser
-- Babel
-- Morgan
-- Path
-- Request
-- Bcrypt
-- Router
-- Lodash
-- Express-session
-- Cors
-- Moment
-- Dotenv
-
-### Testing frameworks used:
-- Mocha
-- Chai
+| Front-End    | Back-End     | Modules         | Testing Frameworks  |
+| ------------ |:------------:| :---------------|:--------------------|
+| React        | Node JS      | Babel           | Mocha               |
+| Redux        | Express      | BodyParser      | Chai                |
+| Webpack      | Mongo Db     | Morgan          |                     |
+|              |              | Mongoose        |                     |
+|              |              | Request         |                     |
+|              |              | Bcrypt          |                     |
+|              |              | Express-session |                     |
+|              |              | Moment          |                     |
+|              |              | Cors            |                     |
+|              |              | Dotenv          |                     |
