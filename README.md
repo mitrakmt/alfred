@@ -1,4 +1,5 @@
 # Alfred - your stock market assistant
+Alfred is the assistant who shows up with what you need, before you knew you needed it, for your investments.
 
 ## API:
 ### Getting Started:
