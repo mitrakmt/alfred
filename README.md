@@ -7,7 +7,8 @@ All data can be accessed from the https://api.alfred.com. All data is sent and r
 
 ### Requests:
 #### Users:
-| POST   | /api/signup   | Post a user to the database.    | Required: name (String), password (String), password (String)     |
+| ------- |:---------------------:| :-----------------------------------------------------------------------------------------------|
+| POST    | /api/signup           | Post a user to the database.    | Required: name (String), password (String), password (String) |
 
     ```javascript
     $.ajax({
@@ -24,17 +25,24 @@ All data can be accessed from the https://api.alfred.com. All data is sent and r
     });
     ```
 
-| POST   | /api/login    | Login a user to the application       | Required: email (String), password (String)                     |
+| ------- |:---------------------:| :-----------------------------------------------------------------------------------|
+| POST    | /api/login            | Login a user to the application       | Required: email (String), password (String) |
 
-| POST   | /api/logout   | Post a user to the database.          | Required: None                                                  |
+| ------- |:---------------------:| :-----------------------------------------------------------------------------------|
+| POST    | /api/logout           | Post a user to the database.          | Required: None                              |
 
 #### Stocks:
-| GET   | /api/stocks    | Get the user's saved list of stocks   | Required: None                                                  |
+| ------- |:---------------------:| :-----------------------------------------------------------------------------------|
+| GET     | /api/stocks           | Get the user's saved list of stocks   | Required: None                              |
 
-| POST   | /api/stocks    | Add stocks to user's stock list      | Required: stocks (Array)                                        |
+| ------- |:---------------------:| :-----------------------------------------------------------------------------------|
+| POST    | /api/stocks           | Add stocks to user's stock list      | Required: stocks (Array)                     |
 
-| GET   | /api/stocks:stockId    | Get the user's saved list of stocks   | Required: None                                          |
-- DELETE /api/stocks
+| ------- |:---------------------:| :-----------------------------------------------------------------------------------|
+| GET     | /api/stocks:stockId   | Get the user's saved list of stocks   | Required: None                              |
+
+| ------- |:---------------------:| :-----------------------------------------------------------------------------------|
+| DELETE  | /api/stocks           | Get the user's saved list of stocks   | Required: stocks (Array)                    |
 
 #### News:
 - GET /api/news
