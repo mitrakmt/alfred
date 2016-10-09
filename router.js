@@ -2,10 +2,10 @@ const Router = require('express').Router();
 const db = require('./db');
 const User = require('./db/User');
 const Middleware = require('./middleware');
+const Promise = require('bluebird');
 
   Router.route('/signup')
     .post(Middleware.checkEmailValidity, Middleware.hashPass, Middleware.createToken, function(req, res) {
-      console.log("SESSSSION", req.session)
       User.create(req.body, function (err, result) {
         if (err) {
           console.log(err)
@@ -26,18 +26,17 @@ const Middleware = require('./middleware');
     });
 
   Router.route('/stocks')
-    .get(Middleware.getUserStocks, function (req, res) {
-      console.log("Inside /GET stocks")
-    });
-    // add in Middleware.checkAuth here and above
-    .post(function (req, res) {
-      // add in user's email in sesion
-      User.findOne({email: "mike.mitrakos@gmail.com"})
-        .then(function (user) {
-          // add in pushed stock ticker
-          user.stocks.push('AAPL', 'FB');
-          user.save();
-        })
+    .get(Middleware.checkAuth, Middleware.getUserStocks, function (req, res) {
+      res.status(200).send(req.session.user.stocks);
+    })
+    .post(Middleware.checkAuth, function (req, res) {
+      new Promise(function () {
+        User.findOne({email: req.session.user})
+      })
+      .then(function (user) {
+        user.stocks.push(req.body.stockTicker);
+        user.save();
+      })
     })
 
 module.exports = Router;

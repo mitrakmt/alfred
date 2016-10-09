@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const Middleware = express.Router()
 const User = require('./db/User');
+const _ = require('lodash');
 
 Middleware.checkAuth = function (req, res, next) {
   if (req.session.user) {
@@ -58,7 +59,7 @@ Middleware.createToken = function (req, res, next) {
     if (err) {
       res.err(err)
     } else {
-      req.session.user = req.body.email;
+      req.session.user = {'email': req.body.email};
       next();
     }
   });
@@ -75,14 +76,11 @@ Middleware.destroyToken = function (req, res, next) {
 }
 
 Middleware.getUserStocks = function (req, res, next) {
-  User.findOne({"email": req.body.email}, function (err, user) {
+  User.findOne({"email": req.session.user.email}, function (err, user) {
     if (err) {
       res.err(err)
     } else {
-      // res.status(200).send(req.session.stocks);
-      req.session.stocks = user;
-      // check to see if stocks shows in console
-      console.log(req.session.stocks)
+      req.session.user.stocks = user.stocks;
       next();
     }
   })
