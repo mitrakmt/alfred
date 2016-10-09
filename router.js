@@ -8,7 +8,7 @@ const Promise = require('bluebird');
     .post(Middleware.checkEmailValidity, Middleware.hashPass, Middleware.createToken, function(req, res) {
       User.create(req.body, function (err, result) {
         if (err) {
-          console.log(err)
+          res.err(err)
         } else {
           res.status(200).send(result)
         }
@@ -25,6 +25,15 @@ const Promise = require('bluebird');
       res.status(200).send("Login successful");
     });
 
+  Router.route('/news')
+    // Accepts array of stocks through req.body.news, returns 6 stories
+    .get(function (req, res) {
+      res.status(200).send("Here's yo news!")
+    })
+
+  // -- newsapi.org
+  // -- dev.markitondemand.com
+
   Router.route('/stocks')
     .get(Middleware.checkAuth, Middleware.getUserStocks, function (req, res) {
       res.status(200).send(req.session.user.stocks);
@@ -38,5 +47,22 @@ const Promise = require('bluebird');
         user.save();
       })
     })
+    .delete(function (req, res) {
+      new Promise(() => {
+        console.log("Inside first promise of /delete")
+        User.findOne({email: 'nick.mitrakos@gmail.com'})
+      })
+      .then((user) => {
+        console.log("Inside seconds deleting stocks of ", req.body.stocks)
+        // Check to see if any of those stocks are included.
+        let stocks = req.body.stocks;
+        _.each(stocks, (stock) => {
+          _.remove(user.stocks, stock)
+        });
+        user.save();
+        res.status(200).send("Deleted stocks from database");
+      })
+    })
+
 
 module.exports = Router;
