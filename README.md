@@ -25,22 +25,28 @@ All data can be accessed from the https://api.alfred.com. All data is sent and r
     });
     ```
 
+| Request | Endpoint              | Description                           | Required data                               |
 | ------- |:---------------------:| :-----------------------------------------------------------------------------------|
 | POST    | /api/login            | Login a user to the application       | Required: email (String), password (String) |
 
+| Request | Endpoint              | Description                           | Required data                               |
 | ------- |:---------------------:| :-----------------------------------------------------------------------------------|
 | POST    | /api/logout           | Post a user to the database.          | Required: None                              |
 
 #### Stocks:
+| Request | Endpoint              | Description                           | Required data                               |
 | ------- |:---------------------:| :-----------------------------------------------------------------------------------|
 | GET     | /api/stocks           | Get the user's saved list of stocks   | Required: None                              |
 
+| Request | Endpoint              | Description                           | Required data                               |
 | ------- |:---------------------:| :-----------------------------------------------------------------------------------|
 | POST    | /api/stocks           | Add stocks to user's stock list      | Required: stocks (Array)                     |
 
+| Request | Endpoint              | Description                           | Required data                               |
 | ------- |:---------------------:| :-----------------------------------------------------------------------------------|
 | GET     | /api/stocks:stockId   | Get the user's saved list of stocks   | Required: None                              |
 
+| Request | Endpoint              | Description                           | Required data                               |
 | ------- |:---------------------:| :-----------------------------------------------------------------------------------|
 | DELETE  | /api/stocks           | Get the user's saved list of stocks   | Required: stocks (Array)                    |
 
