@@ -38,9 +38,9 @@ All data can be accessed from the https://api.alfred.com. All data is sent and r
 | Request | Endpoint              | Description                           | Required data                                    |
 | ------- |:---------------------:| :-------------------------------------|:-------------------------------------------------|
 | GET     | /api/stocks           | Get the user's saved list of stocks   | Required: None                                   |
-| POST    | /api/stocks           | Add stocks to user's stock list       | Required: stocks (Array)                         |
-| GET     | /api/stocks:stockId   | Get the user's saved list of stocks   | Required: None                                   |
-| DELETE  | /api/stocks           | Get the user's saved list of stocks   | Required: stocks (Array)                         |
+| POST    | /api/stocks           | Add stock to user's stock list        | Required: stock (String)                         |
+| GET     | /api/stocks:stockId   | Get specific stock data               | Required: None                                   |
+| DELETE  | /api/stocks           | Delete stock from user's stock list   | Required: stock (String)                         |
 
 #### News:
 | Request | Endpoint              | Description                           | Required data                                    |

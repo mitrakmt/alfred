@@ -2,7 +2,8 @@ const Router = require('express').Router();
 const db = require('./db');
 const User = require('./db/User');
 const Middleware = require('./middleware');
-const Promise = require('bluebird');
+const Promise = require('co');
+const _ = require('lodash');
 
   Router.route('/signup')
     .post(Middleware.checkEmailValidity, Middleware.hashPass, Middleware.createToken, function(req, res) {
@@ -45,31 +46,39 @@ const Promise = require('bluebird');
     .get(Middleware.checkAuth, Middleware.getUserStocks, function (req, res) {
       res.status(200).send(req.session.user.stocks);
     })
-    .post(Middleware.checkAuth, function (req, res) {
-      new Promise(function () {
-        User.findOne({email: req.session.user})
+    .post(function (req, res) {
+      Promise(function* () {
+        return User.findOne({email: 'nick.mitrakos@gmail.com'})
       })
       .then(function (user) {
-        user.stocks.push(req.body.stockTicker);
+        let stock = req.body.stockTicker;
+        if (_.includes(user.stocks, stock)) {
+          res.status(401).send("That stock is already in the list");
+        }
+        user.stocks.push(stock);
         user.save();
+        res.status(200).send("Added stock ticker")
       })
     })
     .delete(function (req, res) {
-      new Promise(() => {
-        console.log("Inside first promise of /delete")
-        User.findOne({email: 'nick.mitrakos@gmail.com'})
-      })
-      .then((user) => {
-        console.log("Inside seconds deleting stocks of ", req.body.stocks)
-        // Check to see if any of those stocks are included.
-        let stocks = req.body.stocks;
-        _.each(stocks, (stock) => {
-          _.remove(user.stocks, stock)
+        Promise(function* () {
+          return User.findOne({email: 'nick.mitrakos@gmail.com'})
+        })
+        .then(function (user) {
+          let stock = req.body.stock;
+          let stockIndex = user.stocks.indexOf(stock)
+          _.pullAt(user.stocks, stockIndex)
+
+          // Save isn't currently working
+          user.save(function (err) {
+              if(err) {
+                  console.error('ERROR!');
+              }
+          });
         });
-        user.save();
+
         res.status(200).send("Deleted stocks from database");
       })
-    })
 
 
 module.exports = Router;
