@@ -25,10 +25,17 @@ const Promise = require('bluebird');
       res.status(200).send("Login successful");
     });
 
-  Router.route('/news')
-    // Accepts array of stocks through req.body.news, returns 6 stories
+  Router.route('/news/:stockId')
     .get(function (req, res) {
-      res.status(200).send("Here's yo news!")
+      let stockTicker = req.params.stockId;
+      // query the news api for the stock passed in on req.params.stockId
+      res.status(200).send("Here's your news of ", stockTicker)
+    })
+
+  Router.route('/news')
+    .get(function (req, res) {
+      // grabs stock tickers from user profile, then queries those stocks for news
+      res.status(200).send("Here's yo news curated from your stock list")
     })
 
   // -- newsapi.org
