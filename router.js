@@ -26,8 +26,18 @@ const Middleware = require('./middleware');
     });
 
   Router.route('/stocks')
-    .get(Middleware.checkAuth, Middleware.getUserStocks, function (req, res) {
+    .get(Middleware.getUserStocks, function (req, res) {
       console.log("Inside /GET stocks")
     });
+    // add in Middleware.checkAuth here and above
+    .post(function (req, res) {
+      // add in user's email in sesion
+      User.findOne({email: "mike.mitrakos@gmail.com"})
+        .then(function (user) {
+          // add in pushed stock ticker
+          user.stocks.push('AAPL', 'FB');
+          user.save();
+        })
+    })
 
 module.exports = Router;

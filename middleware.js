@@ -79,7 +79,10 @@ Middleware.getUserStocks = function (req, res, next) {
     if (err) {
       res.err(err)
     } else {
-      res.status(200).send(req.session.stocks);
+      // res.status(200).send(req.session.stocks);
+      req.session.stocks = user;
+      // check to see if stocks shows in console
+      console.log(req.session.stocks)
       next();
     }
   })
