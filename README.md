@@ -39,7 +39,7 @@ All data can be accessed from the https://api.alfred.com. All data is sent and r
 Sometimes your API call will generate an error. Every response to an API call that generates an error will include an error code, the reason for the error, and an error message to help you debug your request.
 
 | Code  | Response Text   | Description                                                            |
-| ----- |:---------------:| ----------------------------------------------------------------------:|
+| ----- |:---------------:| :----------------------------------------------------------------------|
 | 400   | Bad Request     |                                                                        |
 | 401   | Unauthorized    | You do not have authorization to make the request.                     |
 | 403   | Forbidden       |                                                                        |
