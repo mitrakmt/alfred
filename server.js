@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const router = require('./router.js');
 const app = express();
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
@@ -23,10 +22,6 @@ app.use(session({
 }))
 
 app.use('/', express.static(__dirname + '/client/build'));
-
-app.get('/alfredapi', function (req, res) {
-  res.json({"message": "Connected to the Alfred API."})
-});
 
 app.use('/api', rootRouter);
 
