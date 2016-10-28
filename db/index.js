@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-const User = require('./User.js');
+const User = require('./User');
 const dotenv = require('dotenv')
 
 dotenv.config();

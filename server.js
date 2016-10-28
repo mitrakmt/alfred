@@ -1,29 +1,22 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
-const mongoose = require('mongoose');
-const mongodb = require('mongodb');
-const db = require('./db');
-const rootRouter = require('./router.js');
-const logger = require('morgan');
-const cors = require('cors');
-const session = require('express-session');
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const mongodb = require('mongodb')
+const db = require('./db')
+const rootRouter = require('./routers')
+const logger = require('morgan')
+const cors = require('cors')
 
-const port = process.env.PORT || 2828;
+const port = process.env.PORT || 8000
 
-app.use(bodyParser.json());
-app.use(cors());
-app.use(logger('dev'));
-app.use(session({
-  secret: 'alfred the dog',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
+app.use(bodyParser.json())
+app.use(cors())
+app.use(logger('dev'))
 
-app.use('/', express.static(__dirname + '/client/build'));
+app.use('/', express.static(__dirname + '/client/build'))
 
 app.use('/api', rootRouter);
 
-app.listen(port);
-console.log(`Server listening on port ${port}`);
+app.listen(port)
+console.log(`Server listening on port ${port}`)
