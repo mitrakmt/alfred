@@ -16,12 +16,24 @@ Helpers.checkEmailValidity = (email) => {
 }
 
 Helpers.hashPassword = (password) => {
-  bcrypt.hash(password, 10, (err, hash) => {
-    if (err) {
-      console.error(err)
-      return false
+  bcrypt.genSalt(saltRounds, (err, salt) => {
+    bcrypt.hash(password, salt, (err, hash) => {
+      if (err) {
+        console.error(err)
+        return false
+      } else {
+        return hash
+      }
+    })
+  })
+}
+
+Helpers.checkPassword = (password, hashedPass) => {
+  bcrypt.compare(password, hashedPass, (err, equal) => {
+    if (equal) {
+      return true
     } else {
-      return hash
+      return false
     }
   })
 }

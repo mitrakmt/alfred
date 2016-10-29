@@ -1,6 +1,7 @@
 let stockController = {}
 let User = require('../db/User')
 let _ = require('lodash')
+let cryptojs = require('crypto-js')
 
 stockController.GET_STOCKS = (req, res) => {
   User.findOne({

@@ -33,21 +33,67 @@ userController.SIGNUP = (req, res) => {
 
 userController.SIGNIN = (req, res) => {
   Users.findOne({
-    "email": req.body.email
+    'email': req.body.email
   })
   .then((user) => {
-    bcrypt.compare(req.body.password, user.password, (err, response) => {
-      if (err) {
-        res.status(500).send(err)
-      } else if (response !== null) {
-        let token = jwt.sign({ email: req.body.email, expiresIn: Math.floor(Date.now() / 1000) + (60 * 60) }, 'this is the secret token!')
+    let equal = Helpers.comparePassword(req.body.password, user.password)
 
-        res.status(200).header('Auth', token).header('currentUser', user.id).send({ token: token, id: user.id, name: user.name })
-      } else {
-        res.status(400).send('Invalid email or password')
-      }
-    })
+    if (equal) {
+      let token = jwt.sign({ email: req.body.email, expiresIn: Math.floor(Date.now() / 1000) + (60 * 60) }, 'this is the secret token!')
+
+      res.status(200).header('Auth', token).header('currentUser', user.id).send({ token: token, id: user.id, name: user.name })
+    } else {
+      res.status(400).send('Invalid email or password')
+    }
   })
+}
+
+userController.EDIT = (req, res) => {
+  Users.findOne({
+    '_id': req.headers.id
+  })
+  .then((user) => {
+    if (req.body.name) {
+      user.name = req.body.name
+      user.save((err, user) => {
+        if (err) {
+          res.status(500).send(err)
+        }
+        res.status(200).send(user)
+      })
+    }
+
+    if (req.body.email) {
+      user.email = req.body.email
+      user.save((err, user) => {
+        if (err) {
+          res.status(500).send(err)
+        }
+        res.status(200).send(user)
+      })
+    }
+
+    if (req.body.password) {
+      // Needs fixed
+      let newPassword = Helpers.hashPassword(req.body.password)
+      user.password = newPassword
+      user.save((err, user) => {
+        if (err) {
+          res.status(500).send(err)
+        }
+        res.status(200).send(user)
+      })
+    }
+  })
+}
+
+userController.DELETE = (req, res) => {
+  Users.find({
+    '_id': req.headers.id
+  })
+  .remove().exec()
+
+  res.status(200).send('User deleted successfully')
 }
 
 module.exports = userController
