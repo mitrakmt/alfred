@@ -1,7 +1,20 @@
 let stockController = {}
+let User = require('../db/User')
 
-stockController.GET = function(req, res) {
-  res.status(200).send('Get to /stocks/')
+stockController.GET = (req, res) => {
+  User.findOne({
+    '_id': req.headers.id
+  })
+  .then((user) => {
+    res.status(200).send(user.stocks)
+  })
+  .catch((err) => {
+    res.status(400).send(err)
+  })
 }
 
-module.exports = stockController;
+stockController.POST = (req, res) => {
+
+}
+
+module.exports = stockController

@@ -16,7 +16,7 @@ app.use(logger('dev'))
 
 app.use('/', express.static(__dirname + '/client/build'))
 
-app.use('/api', rootRouter);
+app.use('/api', rootRouter)
 
 app.listen(port)
 console.log(`Server listening on port ${port}`)

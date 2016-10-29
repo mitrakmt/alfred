@@ -3,4 +3,4 @@ let stockController = require('../controllers/stockController')
 
 stockRouter.get('/', stockController.GET)
 
-module.exports = stockRouter;
+module.exports = stockRouter

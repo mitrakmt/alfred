@@ -7,4 +7,4 @@ var userSchema = new mongoose.Schema({
   stocks: Array
 })
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema)
