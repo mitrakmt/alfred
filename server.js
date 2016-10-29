@@ -20,3 +20,5 @@ app.use('/api', rootRouter)
 
 app.listen(port)
 console.log(`Server listening on port ${port}`)
+
+// also going to include twitter sentiment either highly positive or negative to influence outlook
