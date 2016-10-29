@@ -1,6 +1,7 @@
 let Users = require('../db/User')
 let jwt = require('jsonwebtoken')
 let bcrypt = require('bcrypt')
+let Helpers = require('../config')
 
 let userController = {};
 
@@ -9,7 +10,12 @@ userController.GET = function(req, res) {
 };
 
 userController.SIGNUP = function (req, res) {
-  Middleware.hash
+  console.log(req.body.email)
+  let valid = Helpers.checkEmailValidity(req.body.email)
+  if (!valid) {
+    return res.status(400).send('User with that email already exists')
+  }
+
   bcrypt.hash(req.body.password, 10, (err, hash) => {
     if (err) {
       res.err(err)
@@ -22,7 +28,7 @@ userController.SIGNUP = function (req, res) {
         password: req.body.password
       })
       .then(function(user) {
-        var token = jwt.sign({ email: req.body.email, expiresIn: Math.floor(Date.now() / 1000) + (60 * 60) }, 'this is the secret token!');
+        var token = jwt.sign({ email: req.body.email, expiresIn: Math.floor(Date.now() / 1000) + (60 * 60) }, 'Alfred is da bomb');
 
         res.status(200).header('Auth', token).header('currentUser', user.id).send({ token:token, user: user.id, name: user.name  })
       })
