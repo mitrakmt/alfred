@@ -1,7 +1,7 @@
 let Users = require('../db/User')
 let jwt = require('jsonwebtoken')
 let bcrypt = require('bcrypt')
-let Helpers = require('../config')
+let Helpers = require('../helpers')
 let userController = {}
 
 userController.SIGNUP = (req, res) => {
