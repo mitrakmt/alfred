@@ -12,7 +12,6 @@ let assert = chai.assert
 
 chai.use(chaiHttp)
 
-// Test post user
 describe('Users', () => {
   beforeEach((done) => {
       User.remove({}, (err) => {
