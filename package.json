@@ -2,12 +2,12 @@
   "name": "Alfred",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
-    "test": "mocha --timeout 10000",
+    "test": "mocha server/test/user.js",
     "start": "nodemon server/server.js"
   },
-  "author": "",
+  "author": "Michael Mitrakos & Michael Flores",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^0.8.7",
