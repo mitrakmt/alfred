@@ -15,14 +15,4 @@ Helpers.checkEmailValidity = (email) => {
   })
 }
 
-Helpers.checkPassword = (password, hashedPass) => {
-  bcrypt.compare(password, hashedPass, (err, equal) => {
-    if (equal) {
-      return true
-    } else {
-      return false
-    }
-  })
-}
-
 module.exports = Helpers

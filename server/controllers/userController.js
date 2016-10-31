@@ -38,15 +38,14 @@ userController.SIGNIN = (req, res) => {
     'email': req.body.email
   })
   .then((user) => {
-    let equal = Helpers.comparePassword(req.body.password, user.password)
-
-    if (equal) {
+    bcrypt.compare(req.body.password, user.password, (err, equal) => {
+      if (err) {
+        res.status(400).send('Invalid email or password')
+      }
       let token = jwt.sign({ email: req.body.email, expiresIn: Math.floor(Date.now() / 1000) + (600 * 600) }, 'Alfred is da bomb')
 
       res.status(200).header('Auth', token).header('currentUser', user.id).send({ token: token, id: user.id, name: user.name })
-    } else {
-      res.status(400).send('Invalid email or password')
-    }
+    })
   })
 }
 
@@ -61,7 +60,6 @@ userController.EDIT = (req, res) => {
         if (err) {
           res.status(500).send(err)
         }
-        res.status(200).send(user)
       })
     }
 
@@ -71,7 +69,6 @@ userController.EDIT = (req, res) => {
         if (err) {
           res.status(500).send(err)
         }
-        res.status(200).send(user)
       })
     }
 
@@ -83,11 +80,14 @@ userController.EDIT = (req, res) => {
             if (err) {
               res.status(500).send(err)
             }
-            res.status(200).send(user)
           })
         })
       })
     }
+    res.status(200).send(user)
+  })
+  .catch((err) => {
+    res.status(500).send(err)
   })
 }
 
