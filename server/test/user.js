@@ -103,7 +103,6 @@ describe('News', () => {
           .send()
           .end((err, res) => {
             res.should.have.status(200)
-            res.should.have.status(200)
             // Add other stuff here
             done()
           })
@@ -132,5 +131,57 @@ describe('News', () => {
 })
 
 describe('Stocks', () => {
-
+  it('it should GET all stocks for a user', (done) => {
+    User.findOne({
+      'email': 'testing@testing.com'
+    })
+    .then((user) => {
+      let id = user._id
+      chai.request(server)
+        .get('/api/stocks')
+        .set('id', id)
+        .send()
+        .end((err, res) => {
+          res.should.have.status(200)
+          // Add other stuff here
+          done()
+        })
+    })
+  })
+  it('it should ADD a stock to a user\'s stock list', (done) => {
+    User.findOne({
+      'email': 'testing@testing.com'
+    })
+    .then((user) => {
+      let id = user._id
+      chai.request(server)
+        .post('/api/stocks')
+        .set('id', id)
+        .send('BVSN')
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.body.should.have.property('stocks')
+          res.body.stocks.should.be.a('array')
+          // Add other stuff here
+          done()
+        })
+    })
+  })
+  it('it should REMOVE a stock from a user\'s stock list', (done) => {
+    User.findOne({
+      'email': 'testing@testing.com'
+    })
+    .then((user) => {
+      let id = user._id
+      chai.request(server)
+        .delete('/api/stocks')
+        .set('id', id)
+        .send('BVSN')
+        .end((err, res) => {
+          res.should.have.status(200)
+          // Add other stuff here
+          done()
+        })
+    })
+  })
 })
