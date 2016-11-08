@@ -7,7 +7,6 @@ const db = require('./db')
 const rootRouter = require('./routers')
 const logger = require('morgan')
 const cors = require('cors')
-
 const port = process.env.PORT || 8000
 
 app.use(bodyParser.json())
@@ -15,7 +14,6 @@ app.use(cors())
 app.use(logger('dev'))
 
 app.use('/', express.static(__dirname + '/client'))
-
 app.use('/api', rootRouter)
 
 app.listen(port)

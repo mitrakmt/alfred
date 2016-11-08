@@ -179,7 +179,6 @@ describe('Stocks', () => {
         .send('BVSN')
         .end((err, res) => {
           res.should.have.status(200)
-          // Add other stuff here
           done()
         })
     })
